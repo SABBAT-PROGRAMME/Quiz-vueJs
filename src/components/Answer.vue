@@ -8,6 +8,7 @@
       name="answer"
       :value="value"
       v-model="modelValue"
+      @change="onChange"
     />
     {{ value }}
   </label>
@@ -25,11 +26,14 @@ const props = defineProps({
   modelValue: String,
 });
 
-const emit = defineEmits(["update:modelValue"]);
+const emits = defineEmits(["change"]);
+const onChange = (event) => emits("change", event);
+
+// const emit = defineEmits(["update:modelValue"]);
 
 const modelValue = computed({
   get: () => props.modelValue,
-  set: (value) => emit("update:modelValue", value),
+  set: (value) => emits("update:modelValue", value),
 });
 
 const classes = computed(() => ({
